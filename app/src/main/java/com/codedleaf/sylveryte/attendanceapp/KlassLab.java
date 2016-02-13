@@ -28,7 +28,7 @@ public class KlassLab {
         sKlasses =new ArrayList<>();
         for (int i=1; i<10;i++)
         {
-            sKlasses.add(new Klass("Class " + i));
+            sKlasses.add(new Klass("Class " + i,i+100));
         }
     }
 
