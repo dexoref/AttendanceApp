@@ -28,7 +28,7 @@ public class AdditionActivity extends SingleFragmentActivity {
                 return new KlassAddFragment();
             }
             case ADDLECTURE:{
-                return new LectureFragment();
+                return new LectureAddFragment();
             }
             default:return new KlassAddFragment();
         }
