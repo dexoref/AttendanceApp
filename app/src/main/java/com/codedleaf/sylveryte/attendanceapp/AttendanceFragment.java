@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class AttendanceFragment extends Fragment {
 
-    private RecyclerView mClassRecyclerView;
-    private KlassAdapter mKlassAdapter;
+    private RecyclerView mAttendanceRecyclerView;
+    private AttendanceAdapter mAttendanceAdapter;
 
     public AttendanceFragment() {
 
@@ -32,10 +32,10 @@ public class AttendanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.list_fragment_layout,container,false);
 
-        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
-        mClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAttendanceRecyclerView=(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
+        mAttendanceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -44,57 +44,60 @@ public class AttendanceFragment extends Fragment {
 
     private void updateUI()
     {
-        KlassLab klassLab = KlassLab.get(getActivity());
-        List<Klass> klasses = klassLab.getKlasses();
-        mKlassAdapter =new KlassAdapter(klasses);
-        mClassRecyclerView.setAdapter(mKlassAdapter);
+        AttendanceLab attendanceLab = AttendanceLab.get(getActivity());
+        List<Attendance> attendances = attendanceLab.getAttendances();
+        mAttendanceAdapter =new AttendanceAdapter(attendances);
+        mAttendanceRecyclerView.setAdapter(mAttendanceAdapter);
     }
 
 
 
 
     //view holder to hold views
-    private class KlassHolder extends RecyclerView.ViewHolder
+    private class AttendanceHolder extends RecyclerView.ViewHolder
     {
         public TextView mTextView;
+        public TextView mSubTextView;
 
-        public KlassHolder(View itemView)
+        public AttendanceHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
+            mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
         }
 
     }
 
 
     //adapter to manage
-    private class KlassAdapter extends RecyclerView.Adapter<KlassHolder>
+    private class AttendanceAdapter extends RecyclerView.Adapter<AttendanceHolder>
     {
-        private List<Klass> mKlasses;
+        private List<Attendance> mAttendances;
 
-        public KlassAdapter(List<Klass> klasses)
+        public AttendanceAdapter(List<Attendance> attendances)
         {
-            mKlasses =klasses;
+            mAttendances =attendances;
         }
 
         @Override
-        public KlassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public AttendanceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
             View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
-            return new KlassHolder(view);
+            return new AttendanceHolder(view);
         }
 
 
 
         @Override
-        public void onBindViewHolder(KlassHolder holder, int position) {
-            Klass klass = mKlasses.get(position);
-            holder.mTextView.setText(klass.getKlassName());
+        public void onBindViewHolder(AttendanceHolder holder, int position) {
+            Attendance attendance = mAttendances.get(position);
+            holder.mTextView.setText(attendance.getAttendanceName());
+            holder.mSubTextView.setText(" "+attendance.getAttendanceStudents());
         }
 
         @Override
         public int getItemCount() {
-            return mKlasses.size();
+            return mAttendances.size();
         }
     }
 

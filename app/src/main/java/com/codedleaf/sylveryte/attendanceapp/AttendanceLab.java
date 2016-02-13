@@ -2,6 +2,7 @@ package com.codedleaf.sylveryte.attendanceapp;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class AttendanceLab {
     private static AttendanceLab mAttendanceLab;
-    private static List<Klass> mAttendances;
+    private static List<Attendance> mAttendances;
 
     public static AttendanceLab get(Context context)
     {
@@ -23,6 +24,15 @@ public class AttendanceLab {
     private  AttendanceLab(Context context)
     {
 
+        //delete it later
+        mAttendances=new ArrayList<>();
+        mAttendances.add(new Attendance(LectureLab.get().getLectures().get(0)));
 
     }
+
+    public List<Attendance> getAttendances()
+    {
+        return mAttendances;
+    }
+
 }

@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class LectureFragment extends Fragment {
 
-    private RecyclerView mClassRecyclerView;
-    private ClassAdapter mClassAdapter;
+    private RecyclerView mLectureRecyclerView;
+    private LectureAdapter mLectureAdapter;
 
     public LectureFragment() {
 
@@ -33,10 +33,10 @@ public class LectureFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.list_fragment_layout,container,false);
 
-        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
-        mClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLectureRecyclerView=(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
+        mLectureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -45,57 +45,59 @@ public class LectureFragment extends Fragment {
 
     private void updateUI()
     {
-        KlassLab klassLab = KlassLab.get(getActivity());
-        List<Klass> klasses = klassLab.getKlasses();
-        mClassAdapter=new ClassAdapter(klasses);
-        mClassRecyclerView.setAdapter(mClassAdapter);
+        LectureLab lectureLab = LectureLab.get();
+        List<Lecture> lectures = lectureLab.getLectures();
+        mLectureAdapter=new LectureAdapter(lectures);
+        mLectureRecyclerView.setAdapter(mLectureAdapter);
     }
 
 
 
 
     //view holder to hold views
-    private class ClassHolder extends RecyclerView.ViewHolder
+    private class LectureHolder extends RecyclerView.ViewHolder
     {
         public TextView mTextView;
+        public TextView mSubTextView;
 
-        public ClassHolder(View itemView)
+        public LectureHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
+            mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
         }
 
     }
 
 
     //adapter to manage
-    private class ClassAdapter extends RecyclerView.Adapter<ClassHolder>
+    private class LectureAdapter extends RecyclerView.Adapter<LectureHolder>
     {
-        private List<Klass> mClasses;
+        private List<Lecture> mLectures;
 
-        public ClassAdapter(List<Klass> classes)
+        public LectureAdapter(List<Lecture> lectures)
         {
-            mClasses=classes;
+            mLectures =lectures;
         }
 
         @Override
-        public ClassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public LectureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
             View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
-            return new ClassHolder(view);
+            return new LectureHolder(view);
         }
 
 
 
         @Override
-        public void onBindViewHolder(ClassHolder holder, int position) {
-            Klass klass =mClasses.get(position);
-            holder.mTextView.setText(klass.getKlassName());
+        public void onBindViewHolder(LectureHolder holder, int position) {
+            Lecture lecture = mLectures.get(position);
+            holder.mTextView.setText(lecture.getLectureName());
         }
 
         @Override
         public int getItemCount() {
-            return mClasses.size();
+            return mLectures.size();
         }
     }
 }

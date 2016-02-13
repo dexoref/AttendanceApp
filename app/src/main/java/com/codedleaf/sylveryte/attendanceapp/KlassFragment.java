@@ -39,9 +39,9 @@ public class KlassFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.list_fragment_layout,container,false);
 
-        mKlassRecyclerView =(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
+        mKlassRecyclerView =(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
         mKlassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
@@ -64,11 +64,13 @@ public class KlassFragment extends Fragment {
     private class KlassHolder extends RecyclerView.ViewHolder
     {
         public TextView mTextView;
+        public TextView mSubTextView;
 
         public KlassHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
+            mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
         }
 
     }
@@ -97,6 +99,7 @@ public class KlassFragment extends Fragment {
         public void onBindViewHolder(KlassHolder holder, int position) {
             Klass klass = mKlasses.get(position);
             holder.mTextView.setText(klass.getKlassName());
+            holder.mSubTextView.setText(klass.getNumOfStudents()+" ");
         }
 
         @Override
