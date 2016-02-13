@@ -4,4 +4,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="addLecture">Add Lecture</string>
     <string name="addKlass">Add Class</string>
+    <string name="numofstudents">Number of Students</string>
+    <string name="klassName">Class Name</string>
+    <string name="add">Add</string>
 </resources>

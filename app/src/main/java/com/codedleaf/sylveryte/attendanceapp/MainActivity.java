@@ -1,5 +1,6 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -50,15 +51,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
 
@@ -77,8 +69,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+
+            case R.id.add_klass :
+            {
+                startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDKLASS));
+                break;
+            }
+            case R.id.add_lecture:
+            {
+                startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDLECTURE));
+            }
         }
 
         return super.onOptionsItemSelected(item);
