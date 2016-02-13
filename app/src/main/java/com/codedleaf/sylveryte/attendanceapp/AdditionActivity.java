@@ -30,7 +30,7 @@ public class AdditionActivity extends SingleFragmentActivity {
             case ADDLECTURE:{
                 return new LectureAddFragment();
             }
-            default:return new KlassAddFragment();
         }
+        return null;
     }
 }

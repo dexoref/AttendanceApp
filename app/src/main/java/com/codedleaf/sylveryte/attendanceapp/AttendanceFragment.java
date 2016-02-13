@@ -44,7 +44,7 @@ public class AttendanceFragment extends Fragment {
 
     private void updateUI()
     {
-        AttendanceLab attendanceLab = AttendanceLab.get(getActivity());
+        AttendanceLab attendanceLab = AttendanceLab.get();
         List<Attendance> attendances = attendanceLab.getAttendances();
         mAttendanceAdapter =new AttendanceAdapter(attendances);
         mAttendanceRecyclerView.setAdapter(mAttendanceAdapter);

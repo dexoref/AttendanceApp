@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class LectureLab {
     private static LectureLab mLectureLab;
-    private static List<Lecture> mLectures;
+    private  List<Lecture> mLectures;
 
     public static LectureLab get()
     {
@@ -25,7 +25,6 @@ public class LectureLab {
     {
         //delete it later
         mLectures=new ArrayList<>();
-        mLectures.add(new Lecture("maths","co",3,5));
 
     }
 

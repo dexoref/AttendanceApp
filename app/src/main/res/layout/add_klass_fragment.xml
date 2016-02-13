@@ -62,7 +62,8 @@
             android:id="@+id/editText_numOfStudents"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"/>
+            android:layout_toEndOf="@+id/textView2"
+            android:inputType="number"/>
     </RelativeLayout>
     <Button
         android:layout_marginTop="15dp"

@@ -10,23 +10,22 @@ import java.util.List;
  */
 public class AttendanceLab {
     private static AttendanceLab mAttendanceLab;
-    private static List<Attendance> mAttendances;
+    private  List<Attendance> mAttendances;
 
-    public static AttendanceLab get(Context context)
+    public static AttendanceLab get()
     {
         if(mAttendanceLab==null)
         {
-            mAttendanceLab=new AttendanceLab(context);
+            mAttendanceLab=new AttendanceLab();
         }
         return mAttendanceLab;
     }
 
-    private  AttendanceLab(Context context)
+    private  AttendanceLab()
     {
 
         //delete it later
         mAttendances=new ArrayList<>();
-        mAttendances.add(new Attendance(LectureLab.get().getLectures().get(0)));
 
     }
 

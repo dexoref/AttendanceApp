@@ -83,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDKLASS));
                 break;
             }
-            case R.id.add_lecture:
+            case R.id.add_lecture :
             {
                 startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDLECTURE));
+                break;
             }
         }
 
