@@ -51,7 +51,7 @@ public class KlassFragment extends Fragment {
 
     private void updateUI()
     {
-        KlassLab klassLab = KlassLab.get(getActivity());
+        KlassLab klassLab = KlassLab.get();
         List<Klass> klasses = klassLab.getKlasses();
         mKlassAdapter =new KlassAdapter(klasses);
         mKlassRecyclerView.setAdapter(mKlassAdapter);

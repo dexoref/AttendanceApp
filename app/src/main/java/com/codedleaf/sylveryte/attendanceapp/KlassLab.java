@@ -11,28 +11,27 @@ import java.util.List;
 public class KlassLab {
 
     private static KlassLab sKlassLab;
-    private static List<Klass> sKlasses;
+    private  List<Klass> mKlasses;
 
-    public static KlassLab get(Context context)
+    public static KlassLab get()
     {
         if(sKlassLab ==null)
         {
-            sKlassLab =new KlassLab(context);
+            sKlassLab =new KlassLab();
         }
         return sKlassLab;
     }
 
-    private KlassLab(Context context)
+    private KlassLab()
     {
+        mKlasses =new ArrayList<>();
+    }
 
-        sKlasses =new ArrayList<>();
-        for (int i=1; i<10;i++)
-        {
-            sKlasses.add(new Klass("Class " + i,i+100));
-        }
+    public void addKlass(String klassName, int num) {
+        mKlasses.add(new Klass(klassName,num));
     }
 
     public List<Klass> getKlasses() {
-        return sKlasses;
+        return mKlasses;
     }
 }
