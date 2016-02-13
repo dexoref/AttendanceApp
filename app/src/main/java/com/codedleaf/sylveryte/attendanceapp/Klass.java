@@ -29,4 +29,20 @@ public class Klass {
     public void setKlassName(String klassName) {
         mKlassName = klassName;
     }
+
+    public List<Student> getStudents() {
+        return mStudents;
+    }
+
+    public void setStudents(List<Student> students) {
+        mStudents = students;
+    }
+
+    public int getNumOfStudents() {
+        return mNumOfStudents;
+    }
+
+    public void setNumOfStudents(int numOfStudents) {
+        mNumOfStudents = numOfStudents;
+    }
 }

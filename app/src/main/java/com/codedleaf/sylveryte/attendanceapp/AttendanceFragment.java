@@ -18,7 +18,7 @@ import java.util.List;
 public class AttendanceFragment extends Fragment {
 
     private RecyclerView mClassRecyclerView;
-    private ClassAdapter mClassAdapter;
+    private KlassAdapter mKlassAdapter;
 
     public AttendanceFragment() {
 
@@ -32,9 +32,9 @@ public class AttendanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.class_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
 
-        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.class_layout_container_recycler_view);
+        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
         mClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
@@ -46,8 +46,8 @@ public class AttendanceFragment extends Fragment {
     {
         KlassLab klassLab = KlassLab.get(getActivity());
         List<Klass> klasses = klassLab.getKlasses();
-        mClassAdapter=new ClassAdapter(klasses);
-        mClassRecyclerView.setAdapter(mClassAdapter);
+        mKlassAdapter =new KlassAdapter(klasses);
+        mClassRecyclerView.setAdapter(mKlassAdapter);
     }
 
 
@@ -61,18 +61,18 @@ public class AttendanceFragment extends Fragment {
         public KlassHolder(View itemView)
         {
             super(itemView);
-            mTextView=(TextView)itemView.findViewById(R.id.class_list_text_class_name);
+            mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
         }
 
     }
 
 
     //adapter to manage
-    private class ClassAdapter extends RecyclerView.Adapter<KlassHolder>
+    private class KlassAdapter extends RecyclerView.Adapter<KlassHolder>
     {
         private List<Klass> mKlasses;
 
-        public ClassAdapter(List<Klass> klasses)
+        public KlassAdapter(List<Klass> klasses)
         {
             mKlasses =klasses;
         }
@@ -80,7 +80,7 @@ public class AttendanceFragment extends Fragment {
         @Override
         public KlassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
-            View view=layoutInflater.inflate(R.layout.class_list_layout,parent,false);
+            View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
             return new KlassHolder(view);
         }
 

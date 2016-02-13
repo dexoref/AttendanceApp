@@ -33,9 +33,9 @@ public class LectureFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.class_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
 
-        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.class_layout_container_recycler_view);
+        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
         mClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
@@ -62,7 +62,7 @@ public class LectureFragment extends Fragment {
         public ClassHolder(View itemView)
         {
             super(itemView);
-            mTextView=(TextView)itemView.findViewById(R.id.class_list_text_class_name);
+            mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
         }
 
     }
@@ -81,7 +81,7 @@ public class LectureFragment extends Fragment {
         @Override
         public ClassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
-            View view=layoutInflater.inflate(R.layout.class_list_layout,parent,false);
+            View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
             return new ClassHolder(view);
         }
 

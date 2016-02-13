@@ -21,8 +21,8 @@ import java.util.List;
 
 public class KlassFragment extends Fragment {
 
-    private RecyclerView mClassRecyclerView;
-    private KlassAdapter mClassAdapter;
+    private RecyclerView mKlassRecyclerView;
+    private KlassAdapter mKlassAdapter;
 
 
     public KlassFragment() {
@@ -39,10 +39,10 @@ public class KlassFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.class_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.klass_fragment_layout,container,false);
 
-        mClassRecyclerView=(RecyclerView)view.findViewById(R.id.class_layout_container_recycler_view);
-        mClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mKlassRecyclerView =(RecyclerView)view.findViewById(R.id.klass_layout_container_recycler_view);
+        mKlassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -53,8 +53,8 @@ public class KlassFragment extends Fragment {
     {
         KlassLab klassLab = KlassLab.get(getActivity());
         List<Klass> klasses = klassLab.getKlasses();
-        mClassAdapter=new KlassAdapter(klasses);
-        mClassRecyclerView.setAdapter(mClassAdapter);
+        mKlassAdapter =new KlassAdapter(klasses);
+        mKlassRecyclerView.setAdapter(mKlassAdapter);
     }
 
 
@@ -68,7 +68,7 @@ public class KlassFragment extends Fragment {
         public KlassHolder(View itemView)
         {
             super(itemView);
-            mTextView=(TextView)itemView.findViewById(R.id.class_list_text_class_name);
+            mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
         }
 
     }
@@ -87,7 +87,7 @@ public class KlassFragment extends Fragment {
         @Override
         public KlassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
-            View view=layoutInflater.inflate(R.layout.class_list_layout,parent,false);
+            View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
             return new KlassHolder(view);
         }
 

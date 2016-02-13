@@ -2,4 +2,6 @@
     <string name="app_name">Attendance App</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="addLecture">Add Lecture</string>
+    <string name="addKlass">Add Class</string>
 </resources>
