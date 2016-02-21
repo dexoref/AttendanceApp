@@ -26,6 +26,14 @@ public class LectureLab {
         //delete it later
         mLectures=new ArrayList<>();
 
+        mLectures.add(new Lecture("sdds",KlassLab.get().getKlasses().get(1),2,21));
+        mLectures.add(new Lecture("dssd",KlassLab.get().getKlasses().get(2),4,24));
+
+    }
+
+    public void add(String name,Klass klass, int startRollNO, int lastRollNo) {
+        Lecture lecture=new Lecture(name,klass,startRollNO,lastRollNo);
+        mLectures.add(lecture);
     }
 
     public List<Lecture> getLectures()

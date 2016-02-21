@@ -1,6 +1,5 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
-import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +19,18 @@ public class KlassLab {
             sKlassLab =new KlassLab();
         }
         return sKlassLab;
+
+        //cleanup
     }
 
     private KlassLab()
     {
         mKlasses =new ArrayList<>();
+
+        //clean up code
+        mKlasses.add(new Klass("sda",43));
+        mKlasses.add(new Klass("sdxcva",53));
+        mKlasses.add(new Klass("sd43a",73));
     }
 
     public void addKlass(String klassName, int num) {

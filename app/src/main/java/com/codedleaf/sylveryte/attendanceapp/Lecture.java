@@ -7,10 +7,10 @@ public class Lecture {
     private String mLectureName;
     private int mStudentStartingRollNo;
     private int mStudentLastRollNo;
-    private String mKlassName;
-    public Lecture(String lectureName,String klassName,int studentStartingRollNo,int studentLastRollNo)
+    private Klass mKlass;
+    public Lecture(String lectureName,Klass klass,int studentStartingRollNo,int studentLastRollNo)
     {
-        mKlassName=klassName;
+        mKlass=klass;
         mStudentStartingRollNo=studentStartingRollNo;
         mStudentLastRollNo=studentLastRollNo;
         mLectureName=lectureName;
@@ -38,13 +38,5 @@ public class Lecture {
 
     public void setStudentLastRollNo(int studentLastRollNo) {
         mStudentLastRollNo = studentLastRollNo;
-    }
-
-    public String getKlassName() {
-        return mKlassName;
-    }
-
-    public void setKlassName(String klassName) {
-        mKlassName = klassName;
     }
 }

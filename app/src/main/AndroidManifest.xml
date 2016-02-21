@@ -11,7 +11,8 @@
 
         <activity android:name=".AdditionActivity"
                   android:label="@string/add"
-                  android:theme="@style/AppTheme">
+                  android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
         </activity>
 
         <activity

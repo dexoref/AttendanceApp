@@ -99,7 +99,7 @@ public class KlassFragment extends Fragment {
         public void onBindViewHolder(KlassHolder holder, int position) {
             Klass klass = mKlasses.get(position);
             holder.mTextView.setText(klass.getKlassName());
-            holder.mSubTextView.setText(klass.getNumOfStudents()+" ");
+            holder.mSubTextView.setText(String.format("%d ", klass.getNumOfStudents()));
         }
 
         @Override

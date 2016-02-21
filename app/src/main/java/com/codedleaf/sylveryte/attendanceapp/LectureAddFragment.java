@@ -9,18 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by sylveryte on 13/2/16.
  */
 public class LectureAddFragment extends Fragment {
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,20 +28,34 @@ public class LectureAddFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.add_lecture_fragment,container,false);
-        EditText editTextLectureName=(EditText)view.findViewById(R.id.editTextLectureName);
-        Spinner spinner=(Spinner)view.findViewById(R.id.spinner);
+        final EditText editTextLectureName=(EditText)view.findViewById(R.id.editTextLectureName);
+        final EditText editTextStartingRoll=(EditText)view.findViewById(R.id.editTextStartingRoll);
+        final EditText editTextLastRoll=(EditText)view.findViewById(R.id.editTextLastRoll);
+        final Button button=(Button)view.findViewById(R.id.addKlassButton);
+        final Spinner spinner=(Spinner)view.findViewById(R.id.spinner);
 
 
         ArrayAdapter arrayAdapter=new CustomArrayAdapter(
                 getActivity(),
                 R.layout.klass_list_layout,
                 KlassLab.get().getKlasses());
-      //  spinner.setAdapter(arrayAdapter);
+        spinner.setAdapter(arrayAdapter);
 
 
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Klass klass=(Klass)spinner.getSelectedItem();
+                String name=editTextLectureName.getText().toString();
+                int startingRoll=Integer.parseInt(editTextStartingRoll.getText().toString());
+                int lastRoll=Integer.parseInt(editTextLastRoll.getText().toString());
+
+               LectureLab.get().add(name,klass,startingRoll,lastRoll);startActivity(MainActivity.fetchIntent(getActivity()));
+            }
+        });
 
         return view;
     }
@@ -55,7 +68,6 @@ public class LectureAddFragment extends Fragment {
     {
         private List<Klass> mKlasses;
         private LayoutInflater mInflater;
-        private int res;
         private Klass mKlass;
 
         public CustomArrayAdapter(Context context,int layoutResId,List<Klass> arrayList)
@@ -67,29 +79,24 @@ public class LectureAddFragment extends Fragment {
 
         @Override
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
+            return getCustomView(position, parent);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
+            return getCustomView(position, parent);
         }
 
-        private View getCustomView(int pos,View v,ViewGroup viewGroup) {
-            View view = mInflater.inflate(res, viewGroup, false);
+        private View getCustomView(int pos, ViewGroup viewGroup) {
+            View v = mInflater.inflate(R.layout.klass_list_layout, viewGroup, false);
             mKlass = mKlasses.get(pos);
 
-            TextView mTextView = (TextView) view.findViewById(R.id.klass_list_text_klass_name);
-            TextView mSubTextView = (TextView) view.findViewById(R.id.klass_list_text_extra_info);
+            TextView mTextView = (TextView) v.findViewById(R.id.klass_list_text_klass_name);
+            TextView mSubTextView = (TextView) v.findViewById(R.id.klass_list_text_extra_info);
 
-            if (pos == 0) {
-                mTextView.setText("Please select a class");
-            } else
-            {
                 mTextView.setText(mKlass.getKlassName());
                 mSubTextView.setText("Students : " + mKlass.getNumOfStudents());
-            }
-            return view;
+            return v;
         }
     }
 
