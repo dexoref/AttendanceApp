@@ -40,7 +40,8 @@ public class Klass {
         List<Student> specificList=new ArrayList<>();
         for (int i=start;i<=end;i++)
         {
-            specificList.add(mStudents.get(i));
+            Student student=mStudents.get(i);
+            specificList.add( new Student(student.getRollNo()));
         }
         return specificList;
     }

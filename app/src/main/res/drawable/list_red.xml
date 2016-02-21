@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/buttonBack">
-
-    </solid>
+    <gradient
+        android:startColor="#81C784"
+        android:centerColor="#4CAF50"
+        android:endColor="#5eb163"
+        android:type="linear"
+        android:angle="135"/>
     <stroke android:color="@color/buttonBackDark" android:width="5dp">
 
     </stroke>

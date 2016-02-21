@@ -1,5 +1,6 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -58,14 +59,30 @@ public class AttendanceFragment extends Fragment {
     {
         public TextView mTextView;
         public TextView mSubTextView;
+        private Attendance mAttendance;
 
         public AttendanceHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent=AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
+                    intent.putExtra(ListDialog.ATTENDANCECODE,mAttendance.getId());
+                    startActivity(intent);
+                }
+            });
         }
 
+        public void bind(Attendance attendance)
+        {
+            mAttendance=attendance;
+            mTextView.setText(attendance.getAttendanceName());
+            mSubTextView.setText(attendance.getExtraInfo());
+        }
     }
 
 
@@ -90,9 +107,9 @@ public class AttendanceFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(AttendanceHolder holder, int position) {
+
             Attendance attendance = mAttendances.get(position);
-            holder.mTextView.setText(attendance.getAttendanceName());
-            holder.mSubTextView.setText(String.format(" %d", attendance.getAttendanceStudents()));
+            holder.bind(attendance);
         }
 
         @Override

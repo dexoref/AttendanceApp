@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDLECTURE));
                 break;
             }
+            case R.id.add_attendance :
+            {
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                ListDialog dialog=new ListDialog();
+                dialog.show(fragmentManager,"LISTDIALOG");
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "Attendance";
                 case 1:
-                    return "Take Attendance";
+                    return "Lecture";
                 case 2:
                     return "Class";
             }

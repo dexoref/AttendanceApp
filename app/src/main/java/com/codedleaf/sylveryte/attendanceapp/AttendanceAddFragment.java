@@ -37,11 +37,9 @@ public class AttendanceAddFragment extends Fragment {
 
 
         Intent intent=getActivity().getIntent();
-        UUID uuid=(UUID)intent.getSerializableExtra(LectureFragment.LECTURECODE);
-        mLecture=LectureLab.get().getLectureById(uuid);
-        mAttendance=new Attendance(mLecture);
-        AttendanceLab.get().addAttendance(mAttendance);
+        UUID uuid=(UUID)intent.getSerializableExtra(ListDialog.ATTENDANCECODE);
 
+        mAttendance=AttendanceLab.get().getAttendanceById(uuid);
 
         mStudents=mAttendance.getStudents();
         mRollAdapter=new RollAdapter();

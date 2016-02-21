@@ -10,4 +10,7 @@
     <string name="add_new_klass">Add New Class</string>
     <string name="addNewLecture">Add New Lecture</string>
     <string name="selectClass">Select Class</string>
+    <string name="delete">Delete</string>
+    <string name="addAttendance">addAttendance</string>
+    <string name="selectLecture">Select Lecture</string>
 </resources>

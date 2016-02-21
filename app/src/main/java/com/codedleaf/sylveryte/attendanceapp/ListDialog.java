@@ -1,61 +1,65 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 /**
- * Created by sylveryte on 13/2/16.
+ * Created by sylveryte on 21/2/16.
  */
-public class LectureFragment extends Fragment {
+public class ListDialog extends DialogFragment {
 
-    private RecyclerView mLectureRecyclerView;
-    private LectureAdapter mLectureAdapter;
+    private RecyclerView mLectuersList;
+    private List<Lecture> mLectures;
+    private LayoutInflater mLayoutInflater;
+    public static final String ATTENDANCECODE="this is a code";
 
-    public LectureFragment() {
-
-    }
-
-    public static LectureFragment newInstance()
-    {
-        return new LectureFragment();
-    }
+    /*
+     */
 
 
-    @Nullable
+
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.list_fragment_layout,container,false);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        mLectureRecyclerView=(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
-        mLectureRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLayoutInflater=LayoutInflater.from(getActivity());
 
-        updateUI();
+        View v= mLayoutInflater.inflate(R.layout.lectures_list, null);
 
-        return view;
+        mLectuersList=(RecyclerView)v.findViewById(R.id.list_layout_container_lectures);
+
+        mLectuersList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLectures=LectureLab.get().getLectures();
+
+        LectureAdapter adapter=new LectureAdapter(mLectures);
+        mLectuersList.setAdapter(adapter);
+
+
+        return new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.selectLecture)
+                .setView(v)
+                .create();
     }
 
-    private void updateUI()
-    {
-        LectureLab lectureLab = LectureLab.get();
-        List<Lecture> lectures = lectureLab.getLectures();
-        mLectureAdapter=new LectureAdapter(lectures);
-        mLectureRecyclerView.setAdapter(mLectureAdapter);
-    }
-
-
-
-
-    //view holder to hold views
     private class LectureHolder extends RecyclerView.ViewHolder
     {
         public TextView mTextView;
@@ -67,6 +71,19 @@ public class LectureFragment extends Fragment {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent=AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
+                    Attendance attendance=new Attendance(mLecture);
+                    AttendanceLab.get().addAttendance(attendance);
+                    intent.putExtra(ATTENDANCECODE,attendance.getId());
+                    startActivity(intent);
+                }
+            });
+
         }
 
         public void bindLecture(Lecture lecture)
@@ -108,4 +125,8 @@ public class LectureFragment extends Fragment {
             return mLectures.size();
         }
     }
+
+
+
+
 }
