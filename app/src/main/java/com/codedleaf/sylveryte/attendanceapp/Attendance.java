@@ -1,5 +1,6 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,10 +9,14 @@ import java.util.List;
 public class Attendance {
 
     Lecture mLecture;
+    private List<Student> mStudents;
 
     public Attendance(Lecture lecture)
     {
         mLecture=lecture;
+        mStudents=lecture.getKlass().getSpecificStudents(lecture.getStudentStartingRollNo(),
+                lecture.getStudentLastRollNo());
+
     }
 
     public int getAttendanceStudents()
@@ -19,8 +24,13 @@ public class Attendance {
         return mLecture.getStudentLastRollNo();
     }
 
+    public List<Student> getStudents() {
+        return mStudents;
+    }
+
     public String getAttendanceName()
     {
         return mLecture.getLectureName();
     }
+
 }

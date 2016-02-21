@@ -33,6 +33,7 @@ public class LectureAddFragment extends Fragment {
         final EditText editTextLectureName=(EditText)view.findViewById(R.id.editTextLectureName);
         final EditText editTextStartingRoll=(EditText)view.findViewById(R.id.editTextStartingRoll);
         final EditText editTextLastRoll=(EditText)view.findViewById(R.id.editTextLastRoll);
+        final EditText editTextRemarks=(EditText)view.findViewById(R.id.editTextRemarks);
         final Button button=(Button)view.findViewById(R.id.addKlassButton);
         final Spinner spinner=(Spinner)view.findViewById(R.id.spinner);
 
@@ -50,10 +51,11 @@ public class LectureAddFragment extends Fragment {
             public void onClick(View v) {
                 Klass klass=(Klass)spinner.getSelectedItem();
                 String name=editTextLectureName.getText().toString();
+                String remarks=editTextRemarks.getText().toString();
                 int startingRoll=Integer.parseInt(editTextStartingRoll.getText().toString());
                 int lastRoll=Integer.parseInt(editTextLastRoll.getText().toString());
 
-               LectureLab.get().add(name,klass,startingRoll,lastRoll);startActivity(MainActivity.fetchIntent(getActivity()));
+               LectureLab.get().add(name,klass,startingRoll,lastRoll,remarks);startActivity(MainActivity.fetchIntent(getActivity()));
             }
         });
 

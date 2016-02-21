@@ -92,7 +92,7 @@ public class AttendanceFragment extends Fragment {
         public void onBindViewHolder(AttendanceHolder holder, int position) {
             Attendance attendance = mAttendances.get(position);
             holder.mTextView.setText(attendance.getAttendanceName());
-            holder.mSubTextView.setText(" "+attendance.getAttendanceStudents());
+            holder.mSubTextView.setText(String.format(" %d", attendance.getAttendanceStudents()));
         }
 
         @Override

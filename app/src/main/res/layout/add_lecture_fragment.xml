@@ -36,7 +36,9 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/editTextLectureName"
-                    android:layout_column="2"/>
+                    android:layout_column="2"
+                    android:hint="eg Physics"
+                />
         </TableRow>
 
         <TableRow
@@ -78,7 +80,8 @@
 
                 android:ems="10"
                 android:id="@+id/editTextStartingRoll"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:hint="starting roll no"/>
         </TableRow>
 
         <TableRow
@@ -98,9 +101,29 @@
                 android:inputType="numberSigned"
                 android:ems="10"
                 android:id="@+id/editTextLastRoll"
-                android:layout_column="2"/>
+                android:layout_column="2"
+                android:hint="last roll no"/>
         </TableRow>
 
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Extra info"
+                android:id="@+id/textView6"
+                android:layout_column="1"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextRemarks"
+                android:layout_column="2"
+                android:hint="eg : a batch, 304"/>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"

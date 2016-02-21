@@ -1,5 +1,6 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ public class LectureFragment extends Fragment {
 
     private RecyclerView mLectureRecyclerView;
     private LectureAdapter mLectureAdapter;
+    public static final String LECTURECODE="kya miya lecture code";
 
     public LectureFragment() {
 
@@ -59,6 +61,7 @@ public class LectureFragment extends Fragment {
     {
         public TextView mTextView;
         public TextView mSubTextView;
+        private Lecture mLecture;
 
         public LectureHolder(View itemView)
         {
@@ -67,6 +70,13 @@ public class LectureFragment extends Fragment {
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
         }
 
+        public void bindLecture(Lecture lecture)
+        {
+            mLecture=lecture;
+
+            mTextView.setText(mLecture.getLectureName());
+            mSubTextView.setText(mLecture.getExtraInfo());
+        }
     }
 
 
@@ -83,7 +93,7 @@ public class LectureFragment extends Fragment {
         @Override
         public LectureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
-            View view=layoutInflater.inflate(R.layout.klass_list_layout,parent,false);
+            View view=layoutInflater.inflate(R.layout.klass_list_layout, parent, false);
             return new LectureHolder(view);
         }
 
@@ -92,7 +102,7 @@ public class LectureFragment extends Fragment {
         @Override
         public void onBindViewHolder(LectureHolder holder, int position) {
             Lecture lecture = mLectures.get(position);
-            holder.mTextView.setText(lecture.getLectureName());
+            holder.bindLecture(lecture);
         }
 
         @Override

@@ -33,6 +33,17 @@ public class Klass {
     public List<Student> getStudents() {
         return mStudents;
     }
+    public List<Student> getSpecificStudents(int start,int end) {
+
+        start-=1;
+        end-=1;
+        List<Student> specificList=new ArrayList<>();
+        for (int i=start;i<=end;i++)
+        {
+            specificList.add(mStudents.get(i));
+        }
+        return specificList;
+    }
 
     public void setStudents(List<Student> students) {
         mStudents = students;

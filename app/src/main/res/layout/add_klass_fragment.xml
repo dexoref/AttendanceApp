@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/editTextKlassName"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:hint="eg : Co6g"/>
     </RelativeLayout>
     <RelativeLayout
         android:orientation="horizontal"
@@ -63,7 +64,8 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView2"
             android:layout_toEndOf="@+id/textView2"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:hint="eg 72"/>
     </RelativeLayout>
     <Button
         android:layout_marginTop="15dp"

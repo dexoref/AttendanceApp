@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "Attendance";
                 case 1:
-                    return "Lecture";
+                    return "Take Attendance";
                 case 2:
                     return "Class";
             }

@@ -10,8 +10,10 @@ import android.support.v4.app.Fragment;
 public class AdditionActivity extends SingleFragmentActivity {
 
     private static final String FRAGMENT_CODE="dhaniyaCode";
-    public static final int ADDKLASS=1;
-    public static final int ADDLECTURE=2;
+    public static final int ADDKLASS=11;
+    public static final int ADDLECTURE=21;
+    public static final int TAKEATTENDANCE=22;
+
 
     public static Intent fetchIntent(Context context,int fragCode)
     {
@@ -29,6 +31,8 @@ public class AdditionActivity extends SingleFragmentActivity {
             }
             case ADDLECTURE:{
                 return new LectureAddFragment();
+            }case TAKEATTENDANCE:{
+                return new AttendanceAddFragment();
             }
         }
         return null;

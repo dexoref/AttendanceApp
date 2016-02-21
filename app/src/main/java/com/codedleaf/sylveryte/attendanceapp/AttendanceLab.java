@@ -29,6 +29,11 @@ public class AttendanceLab {
 
     }
 
+    public void addAttendance(Attendance attendance)
+    {
+        mAttendances.add(attendance);
+    }
+
     public List<Attendance> getAttendances()
     {
         return mAttendances;
