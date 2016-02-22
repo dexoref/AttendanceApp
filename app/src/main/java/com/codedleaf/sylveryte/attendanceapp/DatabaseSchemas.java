@@ -43,6 +43,7 @@ public  class DatabaseSchemas {
             public static final String ID="ID";
             public static final String LECTURE_ID="LECTUREID";
             public static final String DATE="DATE";
+            public static final String PRESENT="PRESENT";
         }
     }
 }

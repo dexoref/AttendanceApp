@@ -17,22 +17,22 @@ public class Attendance {
 
     public Attendance(UUID lectureId)
     {
-        this(lectureId,UUID.randomUUID(),new Date());
+        this(lectureId,UUID.randomUUID(),new Date(),null);
 
 
     }
 
     //COnstructor for databaes
-    public Attendance(UUID lectureId,UUID id, Date date)
+
+    public Attendance(UUID lectureId,UUID id, Date date,String presentString)
     {
         mLecture=LectureLab.get().getLectureById(lectureId);
         mStudents=mLecture.getKlass().getSpecificStudents(mLecture.getStudentStartingRollNo(),
                 mLecture.getStudentLastRollNo());
         mId=id;
         mDate=date;
+
     }
-
-
 
     public List<Student> getStudents() {
         return mStudents;
@@ -45,6 +45,7 @@ public class Attendance {
     public Date getDate() {
         return mDate;
     }
+
 
     public String getDateString ()
     {

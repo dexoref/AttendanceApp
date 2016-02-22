@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 
-public class DatabaseLab extends  {
+public class DatabaseLab{
 
     private Context mContext;
     private SQLiteDatabase mKlassDatabase;
@@ -18,8 +18,7 @@ public class DatabaseLab extends  {
     public DatabaseLab(Context context)
     {
         mContext=context.getApplicationContext();
-        mKlassDatabase=new KlassDatabaseHelper()
     }
 
-    public
+
 }

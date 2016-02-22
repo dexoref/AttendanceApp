@@ -9,10 +9,11 @@ import static com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.*;
 /**
  * Created by sylveryte on 22/2/16.
  */
-public class KlassDatabaseHelper extends SQLiteOpenHelper {
+
+public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int version=1;
     private static final String databaseName="Attendance.db";
-    public KlassDatabaseHelper(Context context)
+    public DatabaseHelper(Context context)
     {
         super(context,databaseName,null,version);
     }
@@ -41,6 +42,7 @@ public class KlassDatabaseHelper extends SQLiteOpenHelper {
                         " _id integer primary key autoincrement, "+
                         AttendanceTable.Cols.ID+", "+
                         AttendanceTable.Cols.LECTURE_ID+", "+
+                        AttendanceTable.Cols.PRESENT+", "+
                         AttendanceTable.Cols.DATE+")"
         );
     }
