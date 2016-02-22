@@ -16,7 +16,6 @@ public class Attendance {
     private List<Student> mStudents;
     private UUID mId;
     private Date mDate;
-    private static SimpleDateFormat sSimpleDateFormat;
 
     public Attendance(UUID lectureId)
     {
@@ -35,7 +34,6 @@ public class Attendance {
         mId=id;
         mDate=date;
 
-        sSimpleDateFormat=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 
     }
@@ -58,12 +56,12 @@ public class Attendance {
     }
 
     public static Date getDateByString(String  s) throws ParseException {
-        return sSimpleDateFormat.parse(s);
+        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(s);
     }
 
     public String getDateString ()
     {
-        return sSimpleDateFormat.format(mDate);
+        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(mDate);
     }
 
     public String getExtraInfo()

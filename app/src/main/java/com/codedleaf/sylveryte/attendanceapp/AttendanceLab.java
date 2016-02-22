@@ -84,7 +84,7 @@ public class AttendanceLab {
     {
         mDatabase.update(DatabaseSchemas.AttendanceTable.NAME,
                 getContentValues(attendance),
-                Cols.ID,
+                Cols.ID+" =?",
                 new String[]{attendance.getId().toString()});
     }
 
@@ -110,8 +110,7 @@ public class AttendanceLab {
         values.put(Cols.ID,attendance.getId().toString());
         values.put(Cols.LECTURE_ID,attendance.getLectureId().toString());
         values.put(Cols.DATE,attendance.getDateString());
-        values.put(Cols.PRESENT,
-                SylveryteJoinSplit.getString(attendance.getStudents()));
+        values.put(Cols.PRESENT,SylveryteJoinSplit.getString(attendance.getStudents()));
 
         return values;
     }
