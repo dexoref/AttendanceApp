@@ -77,7 +77,7 @@ public class ListDialog extends DialogFragment {
                 public void onClick(View v) {
 
                     Intent intent=AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
-                    Attendance attendance=new Attendance(mLecture);
+                    Attendance attendance=new Attendance(mLecture.getId());
                     AttendanceLab.get().addAttendance(attendance);
                     intent.putExtra(ATTENDANCECODE,attendance.getId());
                     startActivity(intent);

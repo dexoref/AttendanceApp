@@ -12,15 +12,25 @@ public class Lecture {
     private Klass mKlass;
     private String mRemarks;
     private UUID mId;
+
+
     public Lecture(String lectureName,Klass klass,int studentStartingRollNo,int studentLastRollNo,String remarks)
     {
-        mKlass=klass;
-        mStudentStartingRollNo=studentStartingRollNo;
-        mStudentLastRollNo=studentLastRollNo;
-        mLectureName=lectureName;
-        mRemarks=remarks;
-        mId=UUID.randomUUID();
+        this(lectureName,klass,studentStartingRollNo,studentLastRollNo,remarks,UUID.randomUUID());
     }
+
+
+    public Lecture(String lectureName,Klass klass,int studentStartingRollNo,
+                   int studentLastRollNo,String remarks,UUID id) {
+        mKlass = klass;
+        mStudentStartingRollNo = studentStartingRollNo;
+        mStudentLastRollNo = studentLastRollNo;
+        mLectureName = lectureName;
+        mRemarks = remarks;
+        mId=id;
+    }
+
+
 
     public String getLectureName() {
         return mLectureName;
@@ -43,23 +53,12 @@ public class Lecture {
 
     }
 
-    public void setLectureName(String lectureName) {
-        mLectureName = lectureName;
-    }
-
     public int getStudentStartingRollNo() {
         return mStudentStartingRollNo;
     }
 
-    public void setStudentStartingRollNo(int studentStartingRollNo) {
-        mStudentStartingRollNo = studentStartingRollNo;
-    }
 
     public int getStudentLastRollNo() {
         return mStudentLastRollNo;
-    }
-
-    public void setStudentLastRollNo(int studentLastRollNo) {
-        mStudentLastRollNo = studentLastRollNo;
     }
 }

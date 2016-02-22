@@ -1,6 +1,6 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,15 +15,23 @@ public class Attendance {
     private UUID mId;
     private Date mDate;
 
-    public Attendance(Lecture lecture)
+    public Attendance(UUID lectureId)
     {
-        mLecture=lecture;
-        mStudents=lecture.getKlass().getSpecificStudents(lecture.getStudentStartingRollNo(),
-                lecture.getStudentLastRollNo());
-        mId=UUID.randomUUID();
-        mDate=new Date();
+        this(lectureId,UUID.randomUUID(),new Date());
+
 
     }
+
+    //COnstructor for databaes
+    public Attendance(UUID lectureId,UUID id, Date date)
+    {
+        mLecture=LectureLab.get().getLectureById(lectureId);
+        mStudents=mLecture.getKlass().getSpecificStudents(mLecture.getStudentStartingRollNo(),
+                mLecture.getStudentLastRollNo());
+        mId=id;
+        mDate=date;
+    }
+
 
 
     public List<Student> getStudents() {
@@ -38,9 +46,15 @@ public class Attendance {
         return mDate;
     }
 
+    public String getDateString ()
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM/dd/yyyy");
+        return simpleDateFormat.format(mDate);
+    }
+
     public String getExtraInfo()
     {
-        return "No of students "+mStudents.size()+"\nDate : "+mDate.toString();
+        return "No of students "+mStudents.size()+"\nDate : "+getDateString();
     }
 
     public void setDate(Date date) {
