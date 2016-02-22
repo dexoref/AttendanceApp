@@ -43,6 +43,9 @@ public class Lecture {
     public UUID getId() {
         return mId;
     }
+    public UUID getKlassId() {
+        return mKlass.getId();
+    }
 
     public String getExtraInfo(){
 
@@ -52,6 +55,8 @@ public class Lecture {
 
 
     }
+
+
 
     public int getStudentStartingRollNo() {
         return mStudentStartingRollNo;

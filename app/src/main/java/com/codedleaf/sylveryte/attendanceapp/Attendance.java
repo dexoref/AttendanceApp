@@ -1,5 +1,7 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,7 @@ public class Attendance {
     private List<Student> mStudents;
     private UUID mId;
     private Date mDate;
+    private SimpleDateFormat mSimpleDateFormat;
 
     public Attendance(UUID lectureId)
     {
@@ -32,6 +35,9 @@ public class Attendance {
         mId=id;
         mDate=date;
 
+        mSimpleDateFormat=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+
     }
 
     public List<Student> getStudents() {
@@ -42,15 +48,22 @@ public class Attendance {
         return mId;
     }
 
+    public UUID getLectureId() {
+        return mLecture.getId();
+    }
+
+
     public Date getDate() {
         return mDate;
     }
 
+    public void setDateByString(String  s) throws ParseException {
+        mDate=mSimpleDateFormat.parse(s);
+    }
 
     public String getDateString ()
     {
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM/dd/yyyy");
-        return simpleDateFormat.format(mDate);
+        return mSimpleDateFormat.format(mDate);
     }
 
     public String getExtraInfo()
@@ -61,6 +74,7 @@ public class Attendance {
     public void setDate(Date date) {
         mDate = date;
     }
+
 
     public String getAttendanceName()
     {

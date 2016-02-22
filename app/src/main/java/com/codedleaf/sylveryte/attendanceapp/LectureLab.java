@@ -1,6 +1,9 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
-import android.content.Context;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.LectureTable.Cols;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.UUID;
 public class LectureLab {
     private static LectureLab mLectureLab;
     private  List<Lecture> mLectures;
+    private SQLiteDatabase mDatabase;
 
     public static LectureLab get()
     {
@@ -24,11 +28,9 @@ public class LectureLab {
 
     private  LectureLab()
     {
+        mDatabase=DatabaseLab.getDatabase();
         //delete it later
         mLectures=new ArrayList<>();
-
-        mLectures.add(new Lecture("sdds",KlassLab.get().getKlasses().get(1),2,21,"a baych"));
-        mLectures.add(new Lecture("dssd",KlassLab.get().getKlasses().get(2),4,24,"b baych"));
 
     }
 
@@ -49,7 +51,20 @@ public class LectureLab {
         return null;
     }
 
-    public List<Lecture> getLectures()
+    private static ContentValues getContentValues(Lecture lecture) {
+        ContentValues values = new ContentValues();
+
+        values.put(Cols.ID,lecture.getId().toString());
+        values.put(Cols.LECTURE_NAME,lecture.getLectureName());
+        values.put(Cols.KLASS_ID,lecture.getKlassId().toString());
+        values.put(Cols.STARTING_ROLL_NO,lecture.getStudentStartingRollNo());
+        values.put(Cols.LAST_ROLL_NO,lecture.getStudentLastRollNo());
+        values.put(Cols.REMARKS,lecture.getExtraInfo());
+
+        return values;
+    }
+
+        public List<Lecture> getLectures()
     {
         return mLectures;
     }

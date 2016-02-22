@@ -3,6 +3,7 @@ package com.codedleaf.sylveryte.attendanceapp;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+
 /**
  * Created by sylveryte on 22/2/16.
  */
@@ -11,14 +12,25 @@ import android.database.sqlite.SQLiteDatabase;
 public class DatabaseLab{
 
     private Context mContext;
-    private SQLiteDatabase mKlassDatabase;
-    private SQLiteDatabase mLectureDatabase;
-    private SQLiteDatabase mAttendanceDatabase;
+    private static SQLiteDatabase sDatabase;
+    private static DatabaseLab mDatabaseLab;
 
-    public DatabaseLab(Context context)
+    private DatabaseLab(Context context)
     {
         mContext=context.getApplicationContext();
+        sDatabase =new DatabaseHelper(mContext).getWritableDatabase();
     }
 
+    public static DatabaseLab getInstance(Context context) {
 
+        if (mDatabaseLab==null)
+        {
+            mDatabaseLab=new DatabaseLab(context);
+        }
+        return mDatabaseLab;
+    }
+
+    public static SQLiteDatabase getDatabase() {
+        return sDatabase;
+    }
 }

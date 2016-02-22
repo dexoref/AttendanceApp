@@ -1,6 +1,11 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.KlassTable.Cols;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +16,7 @@ public class KlassLab {
 
     private static KlassLab sKlassLab;
     private  List<Klass> mKlasses;
+    private SQLiteDatabase mDatabase;
 
     public static KlassLab get()
     {
@@ -25,12 +31,20 @@ public class KlassLab {
 
     private KlassLab()
     {
+        mDatabase=DatabaseLab.getDatabase();
+
         mKlasses =new ArrayList<>();
 
-        //clean up code
-        mKlasses.add(new Klass("sda",43));
-        mKlasses.add(new Klass("sdxcva",53));
-        mKlasses.add(new Klass("sd43a",73));
+    }
+
+    private static ContentValues getContentValues(Klass klass) {
+        ContentValues values=new ContentValues();
+
+        values.put(Cols.KLASS_NAME,klass.getKlassName());
+        values.put(Cols.ID,klass.getId().toString());
+        values.put(Cols.NUM_OF_STUDENTS,klass.getNumOfStudents());
+
+        return values;
     }
 
     public void addKlass(String klassName, int num) {

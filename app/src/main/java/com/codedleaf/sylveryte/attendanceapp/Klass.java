@@ -56,6 +56,10 @@ public class Klass {
         return specificList;
     }
 
+    public UUID getId() {
+        return mId;
+    }
+
     public void setStudents(List<Student> students) {
         mStudents = students;
     }
