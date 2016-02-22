@@ -49,6 +49,12 @@ public class AttendanceAddFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        AttendanceLab.get().updateDatabaseOfAttendance(mAttendance);
+    }
+
     private class RollHolder extends RecyclerView.ViewHolder
     {
         private Student mStudent;

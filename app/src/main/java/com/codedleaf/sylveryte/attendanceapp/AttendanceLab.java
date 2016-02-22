@@ -2,10 +2,12 @@ package com.codedleaf.sylveryte.attendanceapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.AttendanceTable.Cols;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,13 +36,56 @@ public class AttendanceLab {
         mDatabase=DatabaseLab.getDatabase();
 
         mAttendances=new ArrayList<>();
+        readDb();
 
+    }
 
+    private void readDb()
+    {
+        AttendanceCursorWrapper cursor=queryAttendance(null,null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                mAttendances.add(cursor.getAttendance());
+                cursor.moveToNext();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }finally {
+            cursor.close();
+        }
+    }
+
+    private AttendanceCursorWrapper queryAttendance(String whereClause, String[] wherArgs)
+    {
+        Cursor cursor=mDatabase.query(
+                DatabaseSchemas.AttendanceTable.NAME,
+                null, //null selects all column
+                whereClause,
+                wherArgs,
+                null,
+                null,
+                null
+        );
+
+        return new AttendanceCursorWrapper(cursor);
     }
 
     public void addAttendance(Attendance attendance)
     {
+
         mAttendances.add(attendance);
+        mDatabase.insert(DatabaseSchemas.AttendanceTable.NAME,null,getContentValues(attendance));
+    }
+
+    public void updateDatabaseOfAttendance(Attendance attendance)
+    {
+        mDatabase.update(DatabaseSchemas.AttendanceTable.NAME,
+                getContentValues(attendance),
+                Cols.ID,
+                new String[]{attendance.getId().toString()});
     }
 
     public Attendance getAttendanceById(UUID uuid)

@@ -1,6 +1,7 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.LectureTable.Cols;
@@ -31,12 +32,45 @@ public class LectureLab {
         mDatabase=DatabaseLab.getDatabase();
         //delete it later
         mLectures=new ArrayList<>();
+        readDb();
 
+    }
+
+    private void readDb()
+    {
+        LectureCursorWrapper cursor=queryLectures(null,null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                mLectures.add(cursor.getLecture());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    private LectureCursorWrapper queryLectures(String whereClause, String[] wherArgs)
+    {
+        Cursor cursor=mDatabase.query(
+                DatabaseSchemas.LectureTable.NAME,
+                null, //null selects all column
+                whereClause,
+                wherArgs,
+                null,
+                null,
+                null
+        );
+
+        return new LectureCursorWrapper(cursor);
     }
 
     public void add(String name,Klass klass, int startRollNO, int lastRollNo,String remarks) {
         Lecture lecture=new Lecture(name,klass,startRollNO,lastRollNo,remarks);
         mLectures.add(lecture);
+        mDatabase.insert(DatabaseSchemas.LectureTable.NAME,null,getContentValues(lecture));
     }
 
 

@@ -2,12 +2,15 @@ package com.codedleaf.sylveryte.attendanceapp;
 
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.KlassTable;
 import com.codedleaf.sylveryte.attendanceapp.DatabaseSchemas.KlassTable.Cols;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by sylveryte on 13/2/16.
@@ -34,8 +37,42 @@ public class KlassLab {
         mDatabase=DatabaseLab.getDatabase();
 
         mKlasses =new ArrayList<>();
+        readDb();
 
     }
+
+    private void readDb()
+    {
+
+        KlassCursorWrapper cursor=queryKlass(null,null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                mKlasses.add(cursor.getKlass());
+                cursor.moveToNext();
+            }
+        }finally {
+            cursor.close();
+        }
+    }
+
+    private KlassCursorWrapper queryKlass(String whereClause, String[] wherArgs)
+    {
+        Cursor cursor=mDatabase.query(
+                DatabaseSchemas.KlassTable.NAME,
+                null, //null selects all column
+                whereClause,
+                wherArgs,
+                null,
+                null,
+                null
+        );
+
+        return new KlassCursorWrapper(cursor);
+    }
+
 
     private static ContentValues getContentValues(Klass klass) {
         ContentValues values=new ContentValues();
@@ -47,8 +84,22 @@ public class KlassLab {
         return values;
     }
 
+    public Klass getKlassById(UUID uuid)
+    {
+        for (Klass klass: mKlasses) {
+            if (uuid.equals(klass.getId()))
+            {
+                return klass;
+            }
+        }
+        return null;
+    }
+
     public void addKlass(String klassName, int num) {
-        mKlasses.add(new Klass(klassName,num));
+        Klass klass=new Klass(klassName,num);
+        mKlasses.add(klass);
+
+        mDatabase.insert(KlassTable.NAME,null,getContentValues(klass));
     }
 
     public List<Klass> getKlasses() {
