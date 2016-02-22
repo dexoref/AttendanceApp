@@ -102,6 +102,21 @@ public class KlassLab {
         mDatabase.insert(KlassTable.NAME,null,getContentValues(klass));
     }
 
+    public void deleteKlass(Klass klass)
+    {
+        for (Lecture lecture: klass.getLectures())
+        {
+            LectureLab.get().deleteLecture(lecture);
+        }
+//        LectureFragment lf=(LectureFragment)MainActivity.sFragments.get(1);
+//        lf.updateState();
+
+        mKlasses.remove(klass);
+        mDatabase.delete(DatabaseSchemas.KlassTable.NAME,
+                Cols.ID + " =?",
+                new String[]{klass.getId().toString()});
+    }
+
     public List<Klass> getKlasses() {
         return mKlasses;
     }

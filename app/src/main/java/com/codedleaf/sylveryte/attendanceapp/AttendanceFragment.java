@@ -1,14 +1,17 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,7 +36,7 @@ public class AttendanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.list_fragment_layout,container,false);
+        View view=inflater.inflate(R.layout.list_fragment_layout, container, false);
 
         mAttendanceRecyclerView=(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
         mAttendanceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -41,6 +44,13 @@ public class AttendanceFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    public void updateState() {
+        if(mAttendanceAdapter!=null)
+        {
+            mAttendanceAdapter.notifyDataSetChanged();
+        }
     }
 
     private void updateUI()
@@ -60,12 +70,41 @@ public class AttendanceFragment extends Fragment {
         public TextView mTextView;
         public TextView mSubTextView;
         private Attendance mAttendance;
+        private Button deleteButton;
 
         public AttendanceHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
+            deleteButton=(Button)itemView.findViewById(R.id.delete);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Delete this entry?")
+                            .setMessage("Are you sure you want to delete this Attendance entry?\n"+mAttendance.getExtraInfo())
+                            .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //delete
+                                    AttendanceLab.get().deleteAttendance(mAttendance);
+                                    mAttendanceAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //do nothing
+                                    deleteButton.setVisibility(Button.GONE);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,6 +112,15 @@ public class AttendanceFragment extends Fragment {
                     Intent intent=AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
                     intent.putExtra(ListDialog.ATTENDANCECODE,mAttendance.getId());
                     startActivity(intent);
+                }
+            });
+
+            deleteButton=(Button)itemView.findViewById(R.id.delete);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    deleteButton.setVisibility(Button.VISIBLE);
+                    return true;
                 }
             });
         }
@@ -110,6 +158,7 @@ public class AttendanceFragment extends Fragment {
 
             Attendance attendance = mAttendances.get(position);
             holder.bind(attendance);
+            holder.deleteButton.setVisibility(Button.GONE);
         }
 
         @Override

@@ -84,7 +84,15 @@ public class AttendanceLab {
     {
         mDatabase.update(DatabaseSchemas.AttendanceTable.NAME,
                 getContentValues(attendance),
-                Cols.ID+" =?",
+                Cols.ID + " =?",
+                new String[]{attendance.getId().toString()});
+    }
+
+    public void deleteAttendance(Attendance attendance)
+    {
+        mAttendances.remove(attendance);
+        mDatabase.delete(DatabaseSchemas.AttendanceTable.NAME,
+                Cols.ID + " =?",
                 new String[]{attendance.getId().toString()});
     }
 

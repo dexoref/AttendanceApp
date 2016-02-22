@@ -73,6 +73,22 @@ public class LectureLab {
         mDatabase.insert(DatabaseSchemas.LectureTable.NAME,null,getContentValues(lecture));
     }
 
+    public void deleteLecture(Lecture lecture)
+    {
+        for (Attendance attendance:lecture.getAttendances())
+        {
+            AttendanceLab.get().deleteAttendance(attendance);
+        }
+
+//        AttendanceFragment af=(AttendanceFragment)MainActivity.sFragments.get(0);
+//        af.updateState();
+
+        mLectures.remove(lecture);
+        mDatabase.delete(DatabaseSchemas.LectureTable.NAME,
+                Cols.ID + " =?",
+                new String[]{lecture.getId().toString()});
+    }
+
 
     public Lecture getLectureById(UUID uuid)
     {

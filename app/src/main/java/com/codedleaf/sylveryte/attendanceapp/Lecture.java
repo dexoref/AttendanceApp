@@ -1,5 +1,7 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -10,6 +12,7 @@ public class Lecture {
     private int mStudentStartingRollNo;
     private int mStudentLastRollNo;
     private Klass mKlass;
+    private List<Attendance> mAttendances;
     private String mRemarks;
     private UUID mId;
 
@@ -28,12 +31,21 @@ public class Lecture {
         mLectureName = lectureName;
         mRemarks = remarks;
         mId=id;
+        mAttendances=new ArrayList<>();
+        klass.addLecture(this);
     }
 
-
+    public List<Attendance> getAttendances() {
+        return mAttendances;
+    }
 
     public String getLectureName() {
         return mLectureName;
+    }
+
+    public void addAttendance(Attendance attendance)
+    {
+        mAttendances.add(attendance);
     }
 
     public Klass getKlass() {
@@ -49,9 +61,7 @@ public class Lecture {
 
     public String getExtraInfo(){
 
-        return mKlass.getKlassName()+" ("+mStudentStartingRollNo+
-                "-"+mStudentLastRollNo+
-                ") "+mRemarks;
+        return String.format("%s\n%s", getKlass().getKlassName(), mRemarks);
 
 
     }

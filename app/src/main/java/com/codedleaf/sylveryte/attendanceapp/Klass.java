@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Klass {
     private String mKlassName;
     private List<Student> mStudents;
+    private List<Lecture> mLectures;
     private int mNumOfStudents;
     private UUID mId;
 
@@ -23,6 +24,7 @@ public class Klass {
     {
         mKlassName = klassName;
         mStudents=new ArrayList<>();
+        mLectures=new ArrayList<>();
         mNumOfStudents=numOfStudents;
         mId=id;
         for (int i=1;i<=numOfStudents;i++)
@@ -31,8 +33,17 @@ public class Klass {
         }
     }
 
+    public List<Lecture> getLectures() {
+        return mLectures;
+    }
+
     public String getKlassName() {
         return mKlassName;
+    }
+
+    public void addLecture(Lecture lecture)
+    {
+        mLectures.add(lecture);
     }
 
     public void setKlassName(String klassName) {

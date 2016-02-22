@@ -33,7 +33,7 @@ public class KlassAddFragment extends Fragment {
                 KlassLab.get().addKlass(
                         editTextKlassName.getText().toString(),
                         Integer.parseInt(editTextNoOfStudents.getText().toString()));
-                startActivity(MainActivity.fetchIntent(getActivity()));
+                getActivity().finish();
             }
         });
         return view;

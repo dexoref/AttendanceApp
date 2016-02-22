@@ -55,7 +55,8 @@ public class LectureAddFragment extends Fragment {
                 int startingRoll=Integer.parseInt(editTextStartingRoll.getText().toString());
                 int lastRoll=Integer.parseInt(editTextLastRoll.getText().toString());
 
-               LectureLab.get().add(name,klass,startingRoll,lastRoll,remarks);startActivity(MainActivity.fetchIntent(getActivity()));
+               LectureLab.get().add(name,klass,startingRoll,lastRoll,remarks);
+                getActivity().finish();
             }
         });
 

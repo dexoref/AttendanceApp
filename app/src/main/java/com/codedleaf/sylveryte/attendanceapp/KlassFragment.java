@@ -1,13 +1,16 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -49,6 +52,7 @@ public class KlassFragment extends Fragment {
         return view;
     }
 
+
     private void updateUI()
     {
         KlassLab klassLab = KlassLab.get();
@@ -65,12 +69,60 @@ public class KlassFragment extends Fragment {
     {
         public TextView mTextView;
         public TextView mSubTextView;
+        private Button deleteButton;
+        private Klass mKlass;
+
 
         public KlassHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
+            deleteButton=(Button)itemView.findViewById(R.id.delete);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Delete "+mKlass.getKlassName()+"?")
+                            .setMessage("Are you sure you want to delete "+mKlass.getKlassName()+
+                                    "\nAll lectures & attendance of this klass will also be deleted.")
+                            .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //delete
+                                    KlassLab.get().deleteKlass(mKlass);
+                                    mKlassAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //do nothing
+                                    deleteButton.setVisibility(Button.GONE);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    deleteButton.setVisibility(Button.VISIBLE);
+                    return true;
+                }
+            });
+        }
+
+
+
+        public void bind(Klass klass)
+        {
+            mKlass=klass;
+            mTextView.setText(klass.getKlassName());
+            mSubTextView.setText(String.format("%d ", klass.getNumOfStudents()));
         }
 
     }
@@ -98,8 +150,8 @@ public class KlassFragment extends Fragment {
         @Override
         public void onBindViewHolder(KlassHolder holder, int position) {
             Klass klass = mKlasses.get(position);
-            holder.mTextView.setText(klass.getKlassName());
-            holder.mSubTextView.setText(String.format("%d ", klass.getNumOfStudents()));
+            holder.bind(klass);
+            holder.deleteButton.setVisibility(Button.GONE);
         }
 
         @Override

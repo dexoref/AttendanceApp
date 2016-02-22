@@ -2,9 +2,9 @@ package com.codedleaf.sylveryte.attendanceapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -15,7 +15,10 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,22 +31,25 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private FragmentManager mFM;
 
-    public static Intent fetchIntent(Context context)
-    {
-        Intent i=new Intent(context,MainActivity.class);
-        return i;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mSectionsPagerAdapter != null) {
+            mSectionsPagerAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //set db
         DatabaseLab.getInstance(this);
@@ -52,11 +58,30 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mFM=getSupportFragmentManager();
+        mSectionsPagerAdapter = new SectionsPagerAdapter(mFM);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (mSectionsPagerAdapter != null) {
+                    mSectionsPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+//                mSectionsPagerAdapter.notifyDataSetChanged();
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -83,12 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.add_klass :
             {
-                startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDKLASS));
+                startActivityForResult(AdditionActivity.fetchIntent(MainActivity.this, AdditionActivity.ADDKLASS),0);
                 break;
             }
             case R.id.add_lecture :
             {
-                startActivity(AdditionActivity.fetchIntent(MainActivity.this,AdditionActivity.ADDLECTURE));
+                startActivityForResult(AdditionActivity.fetchIntent(MainActivity.this, AdditionActivity.ADDLECTURE),0);
                 break;
             }
             case R.id.add_attendance :
@@ -107,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -125,10 +150,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
         @Override
         public int getCount() {
             // Show 3 total pages.
             return 3;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override

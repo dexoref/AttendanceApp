@@ -34,8 +34,8 @@ public class Attendance {
         mId=id;
         mDate=date;
 
-
-
+        SylveryteJoinSplit.setPresents(mStudents,presentString);
+        mLecture.addAttendance(this);
     }
 
     public List<Student> getStudents() {
@@ -66,7 +66,8 @@ public class Attendance {
 
     public String getExtraInfo()
     {
-        return "No of students "+mStudents.size()+"\nDate : "+getDateString();
+        return mLecture.getKlass().getKlassName()+
+                "\nNo of students "+mStudents.size()+"\nDate : "+getDateString();
     }
 
     public void setDate(Date date) {

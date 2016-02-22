@@ -25,13 +25,24 @@ public class SylveryteJoinSplit {
 
     public static void setPresents(List<Student> list,String presntString)
     {
-        List<String> list2=new ArrayList<String>(Arrays.asList(presntString.split(",")));
-
-        for (int i=0;i<list.size();i++)
+        if(presntString!=null)
         {
-            boolean b=Boolean.parseBoolean(list2.get(i));
-            list.get(i).setIsPresent(b);
+            List<String> list2=new ArrayList<String>(Arrays.asList(presntString.split(",")));
+
+            for (int i=0;i<list.size();i++)
+            {
+                boolean b=Boolean.parseBoolean(list2.get(i));
+                list.get(i).setIsPresent(b);
+            }
+        }else
+        {
+            for (int i=0;i<list.size();i++)
+            {
+                list.get(i).setIsPresent(true);
+            }
         }
+
+
 
     }
 

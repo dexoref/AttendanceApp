@@ -1,14 +1,18 @@
 package com.codedleaf.sylveryte.attendanceapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,6 +48,12 @@ public class LectureFragment extends Fragment {
         return view;
     }
 
+    public void updateState() {
+        if(mLectureAdapter!=null)
+        {
+        mLectureAdapter.notifyDataSetChanged();
+    }}
+
     private void updateUI()
     {
         LectureLab lectureLab = LectureLab.get();
@@ -61,12 +71,48 @@ public class LectureFragment extends Fragment {
         public TextView mTextView;
         public TextView mSubTextView;
         private Lecture mLecture;
+        private Button deleteButton;
 
         public LectureHolder(View itemView)
         {
             super(itemView);
             mTextView=(TextView)itemView.findViewById(R.id.klass_list_text_klass_name);
             mSubTextView=(TextView)itemView.findViewById(R.id.klass_list_text_extra_info);
+            deleteButton=(Button)itemView.findViewById(R.id.delete);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Delete "+mLecture.getLectureName()+"?")
+                            .setMessage("Are you sure you want to delete "+mLecture.getLectureName()+
+                                    "\n"+mLecture.getExtraInfo()+
+                                    "\nAll attendance of this lecture will also be deleted.")
+                            .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //delete
+                                    LectureLab.get().deleteLecture(mLecture);
+                                    mLectureAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //do nothing
+                                    deleteButton.setVisibility(Button.GONE);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    deleteButton.setVisibility(Button.VISIBLE);
+                    return true;
+                }
+            });
         }
 
         public void bindLecture(Lecture lecture)
@@ -100,6 +146,7 @@ public class LectureFragment extends Fragment {
         @Override
         public void onBindViewHolder(LectureHolder holder, int position) {
             Lecture lecture = mLectures.get(position);
+            holder.deleteButton.setVisibility(Button.GONE);
             holder.bindLecture(lecture);
         }
 
