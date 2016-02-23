@@ -4,7 +4,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="addLecture">Add Lecture</string>
     <string name="addKlass">Add Class</string>
-    <string name="numofstudents">Number of Students</string>
+    <string name="numofstudents">Students</string>
     <string name="klassName">Class Name</string>
     <string name="add">Add</string>
     <string name="add_new_klass">Add New Class</string>
@@ -13,4 +13,5 @@
     <string name="delete">Delete</string>
     <string name="addAttendance">addAttendance</string>
     <string name="selectLecture">Select Lecture</string>
+    <string name="modifyAttendance">Modify Attendance</string>
 </resources>

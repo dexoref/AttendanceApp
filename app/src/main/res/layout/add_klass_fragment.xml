@@ -9,68 +9,85 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/liststyle"
         android:text="@string/add_new_klass"
         android:textStyle="bold"
-        android:textSize="40dp"
-        android:layout_margin="30dp"
+        android:gravity="start"
+        android:textSize="40sp"
         />
 
-    <RelativeLayout
-        android:orientation="horizontal"
+
+    <TableLayout
         android:layout_width="match_parent"
-
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:weightSum="1">
+        style="@style/liststyle"
+        android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/klassName"
-            android:id="@+id/textView"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/editTextKlassName"
-            android:layout_toStartOf="@+id/editTextKlassName"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="106dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextKlassName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:hint="eg : Co6g"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/klassName"
+                    android:textSize="20sp"
+                    android:id="@+id/textView"
+                    android:layout_column="1"/>
 
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+            <EditText
+                    android:layout_width="106dp"
+                    android:background="@drawable/edittext_rounded_corners"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:id="@+id/editTextKlassName"
+                    android:layout_column="2"/>
+        </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/numofstudents"
-            android:id="@+id/textView2"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText_numOfStudents"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2"
-            android:inputType="number"
-            android:hint="eg 72"/>
-    </RelativeLayout>
-    <Button
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:id="@+id/addKlassButton"
-        android:layout_height="wrap_content"
-        android:text="@string/addKlass"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/numofstudents"
+                    android:id="@+id/textView2"
+                    android:textSize="20sp"
+                    android:layout_column="1"/>
+
+            <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText_numOfStudents"
+                    android:background="@drawable/edittext_rounded_corners"
+                    android:hint="eg 72"
+                    android:inputType="number"
+
+                    android:layout_column="2"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:id="@+id/addKlassButton"
+                android:layout_height="wrap_content"
+                android:text="@string/addKlass"
+                android:layout_gravity="center_horizontal"
+                android:layout_column="2"/>
+        </TableRow>
+    </TableLayout>
+
+
 </LinearLayout>

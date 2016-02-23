@@ -40,6 +40,8 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:background="@drawable/edittext_rounded_corners"
                     android:id="@+id/editTextLectureName"
                     android:layout_column="2"
                     android:hint="eg Physics"
@@ -80,6 +82,7 @@
 
             <EditText
                 android:layout_width="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
 
@@ -103,6 +106,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
                 android:inputType="numberSigned"
                 android:ems="10"
                 android:id="@+id/editTextLastRoll"
@@ -124,7 +128,9 @@
 
             <EditText
                 android:layout_width="wrap_content"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
                 android:id="@+id/editTextRemarks"
                 android:layout_column="2"
                 android:hint="eg : a batch, 304"/>

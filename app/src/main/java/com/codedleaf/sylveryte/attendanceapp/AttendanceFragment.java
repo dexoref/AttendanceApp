@@ -46,12 +46,7 @@ public class AttendanceFragment extends Fragment {
         return view;
     }
 
-    public void updateState() {
-        if(mAttendanceAdapter!=null)
-        {
-            mAttendanceAdapter.notifyDataSetChanged();
-        }
-    }
+
 
     private void updateUI()
     {
@@ -84,8 +79,8 @@ public class AttendanceFragment extends Fragment {
                 public void onClick(View v) {
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Delete this entry?")
-                            .setMessage("Are you sure you want to delete this Attendance entry?\n"+mAttendance.getExtraInfo())
-                            .setPositiveButton(R.string.delete,new DialogInterface.OnClickListener() {
+                            .setMessage("Are you sure you want to delete this Attendance entry?\n" + mAttendance.getExtraInfo())
+                            .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //delete
@@ -100,7 +95,6 @@ public class AttendanceFragment extends Fragment {
                                     deleteButton.setVisibility(Button.GONE);
                                 }
                             })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
             });
@@ -109,9 +103,31 @@ public class AttendanceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent=AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
-                    intent.putExtra(ListDialog.ATTENDANCECODE,mAttendance.getId());
-                    startActivity(intent);
+
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Choose")
+                            .setPositiveButton(R.string.modifyAttendance, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //
+                                    Intent intent = AdditionActivity.fetchIntent(getActivity(), AdditionActivity.TAKEATTENDANCE);
+                                    intent.putExtra(ListDialog.ATTENDANCECODE, mAttendance.getId());
+                                    startActivityForResult(intent,1);
+                                }
+                            })
+                            .setNegativeButton("Show Summary", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //
+                                    Intent i=SummaryActivity.fetchIntent(getActivity(),mAttendance.getId());
+                                    startActivityForResult(i,1);
+
+                                }
+                            })
+                            .show();
+
+
+
                 }
             });
 
