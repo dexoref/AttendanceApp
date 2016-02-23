@@ -39,7 +39,7 @@ public class AttendanceFragment extends Fragment {
         View view=inflater.inflate(R.layout.list_fragment_layout, container, false);
 
         mAttendanceRecyclerView=(RecyclerView)view.findViewById(R.id.list_layout_container_recycler_view);
-        mAttendanceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAttendanceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,true));
 
         updateUI();
 
