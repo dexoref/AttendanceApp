@@ -76,7 +76,7 @@ public class LectureSummaryFragment extends Fragment {
             if(per<75)
             {
                 mRollText.setTextColor(Color.parseColor("#FF0000"));
-                mProgressBar.setBackgroundColor(Color.parseColor("#FF0000"));
+                mProgressBar.setBackgroundColor(Color.parseColor("#FF8D5F"));
             }
         }
 
