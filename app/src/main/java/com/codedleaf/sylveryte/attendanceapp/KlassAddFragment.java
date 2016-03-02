@@ -17,6 +17,8 @@ public class KlassAddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle("Add Class");
     }
 
     @Nullable

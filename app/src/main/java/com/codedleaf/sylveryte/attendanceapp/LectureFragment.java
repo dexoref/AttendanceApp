@@ -113,6 +113,13 @@ public class LectureFragment extends Fragment {
                     return true;
                 }
             });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i=SummaryActivity.fetchIntent(getActivity(),mLecture.getId(),SummaryActivity.MONTH_SUMMARY);
+                    startActivityForResult(i,0);
+                }
+            });
         }
 
         public void bindLecture(Lecture lecture)

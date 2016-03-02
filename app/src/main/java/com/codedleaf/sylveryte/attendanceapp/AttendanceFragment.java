@@ -119,7 +119,7 @@ public class AttendanceFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //
-                                    Intent i=SummaryActivity.fetchIntent(getActivity(),mAttendance.getId());
+                                    Intent i=SummaryActivity.fetchIntent(getActivity(),mAttendance.getId(),SummaryActivity.DAY_SUMMARY);
                                     startActivityForResult(i,1);
 
                                 }

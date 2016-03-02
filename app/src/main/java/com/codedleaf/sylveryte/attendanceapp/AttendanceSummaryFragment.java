@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.UUID;
 
-public class SummaryFragment extends Fragment {
+public class AttendanceSummaryFragment extends Fragment {
 
     private Attendance mAttendance;
 

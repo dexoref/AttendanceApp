@@ -35,6 +35,7 @@ public class AttendanceAddFragment extends Fragment {
         mAttendanceRecyclerView=(RecyclerView)view.findViewById(R.id.attendance_container_recycler_view);
         mAttendanceRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
 
+        getActivity().setTitle("Attendance");
 
         Intent intent=getActivity().getIntent();
         UUID uuid=(UUID)intent.getSerializableExtra(ListDialog.ATTENDANCECODE);

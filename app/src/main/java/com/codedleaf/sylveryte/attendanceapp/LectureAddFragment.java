@@ -38,6 +38,8 @@ public class LectureAddFragment extends Fragment {
         final Spinner spinner=(Spinner)view.findViewById(R.id.spinner);
 
 
+        getActivity().setTitle("Add Lecture");
+
         ArrayAdapter arrayAdapter=new CustomArrayAdapter(
                 getActivity(),
                 R.layout.klass_list_layout,
