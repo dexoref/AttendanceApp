@@ -73,10 +73,13 @@ public class LectureSummaryFragment extends Fragment {
             mRollText.setText(String.format("%d ", mStudents.get(pos).getRollNo()));
             mPer.setText(String.format("%.2f %%", per));
             mProgressBar.setProgress((int)per);
-            if(per<75)
-            {
+            if(per<75) {
                 mRollText.setTextColor(Color.parseColor("#FF0000"));
-                mProgressBar.setBackgroundColor(Color.parseColor("#FF8D5F"));
+                mProgressBar.setBackgroundColor(Color.parseColor("#770000"));
+            }else
+            {
+                mRollText.setTextColor(Color.parseColor("#119966"));
+                mProgressBar.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         }
 
