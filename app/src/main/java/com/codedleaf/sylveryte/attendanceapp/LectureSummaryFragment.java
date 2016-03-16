@@ -21,7 +21,6 @@ import java.util.UUID;
  */
 public class LectureSummaryFragment extends Fragment {
 
-    private Lecture mLecture;
     private List<Attendance> mAttendances;
     private List<Student> mStudents;
 
@@ -35,12 +34,12 @@ public class LectureSummaryFragment extends Fragment {
 
         Intent i=getActivity().getIntent();
         UUID uuid=(UUID)i.getSerializableExtra(SummaryActivity.FRAGMENT_CODE);
-        mLecture=LectureLab.get().getLectureById(uuid);
-        mAttendances=mLecture.getAttendances();
+        Lecture lecture = LectureLab.get().getLectureById(uuid);
+        mAttendances= lecture.getAttendances();
         if (mAttendances.get(0)!=null)
             mStudents = mAttendances.get(0).getStudents();
 
-        getActivity().setTitle(mLecture.getLectureName());
+        getActivity().setTitle(lecture.getLectureName());
         summaryAdapter sa=new summaryAdapter();
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(sa);
